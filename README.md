@@ -9,6 +9,7 @@ This documentation was originally created for USITT 2026 in Long Beach, Californ
 - TouchDesign .toe File
 
 *Notes on AI Use*
+
 Both ChatGPT and Claude were used as tools in the creation of some of the programming. THe process generally worked as follows:
 - I would write my initial code. 
 - I would test my initial code. If items weren't working exaclty as I had hoped, I would as Claude and/or ChatGPT to help me figure out the solution.
