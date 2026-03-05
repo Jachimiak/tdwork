@@ -3,7 +3,7 @@
 This documentation was originally created for USITT 2026 in Long Beach, California for the workshop *Designing the Scare: Interactive Fright Effects with TouchDesigner and Python*. The presentation focused on beginning users of TouchDesigner, Arduinos, and Python when creating interactive and/or scare related items for haunted attractions. All information is freely available and welcome to be reused if you desire.
 
 ### Files
-- Arduino Code Explained
+- [Arduino Code Explained](Arduino_Code_Explained.md)
 - TouchDesigner Network
 - Arduion .ino File
 - TouchDesign .toe File
