@@ -1,6 +1,6 @@
 # Test
 
-``````
+```
 // PressureMatToSerial.ino
 const uint8_t MAT_PIN = 2;  // digital pin connected to mat or trigger
 const unsigned long DEBOUNCE_MS = 3000; // to prevent accidental triggers
