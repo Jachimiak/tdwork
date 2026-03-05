@@ -6,7 +6,8 @@ This documentation was originally created for USITT 2026 in Long Beach, Californ
 - [Arduino Trigger Code Explained](Arduino_Trigger_Code.md)
 - [Arduino Motion Code Explained](Arduino_Motion_Code.md)
 - TouchDesigner Network
-- Arduion .ino File
+- [Arduino Trigger .ino File](pressure_pad_trigger.ino)
+- [Arduino Motion .ino File](motion_sensor.ino)
 - TouchDesign .toe File
 
 *Notes on AI Use*
