@@ -12,15 +12,19 @@ unsigned long lastChangeTime = 0;
 This is the global configuration and variable declaration section at the top of the sketch — everything here is available to both setup() and loop().
 
 **const uint8_t MAT_PIN = 2;**
+
 Declares a constant named MAT_PIN with a value of 2, meaning the pressure mat is wired to digital pin 2. Using uint8_t (an unsigned 8-bit integer) is a memory-efficient choice for storing a pin number since it only needs values 0–255. const ensures this value can never be accidentally changed at runtime.
 
 **const unsigned long DEBOUNCE_MS = 3000;**
+
 Sets a debounce window of 3000 milliseconds (3 seconds). Debouncing prevents rapid, unintended re-triggers — in this context, it means once the mat is triggered, the code will ignore further state changes for 3 full seconds. This is a long debounce compared to typical button use (usually 20–50ms), suggesting the mat is meant to detect deliberate, sustained events rather than quick taps.
 
 **bool lastState = HIGH;**
+
 A boolean variable that tracks the mat's previous state, initialized to HIGH. The comment explains the logic: because INPUT_PULLUP is used, HIGH means the mat is not pressed and LOW means it is pressed. This inverted logic is standard for pull-up circuits. This variable will be compared against the current reading in loop() to detect changes.
 
 **unsigned long lastChangeTime = 0;**
+
 Stores the timestamp (in milliseconds) of the last detected state change. Initialized to 0 since no change has occurred yet. This will be compared against millis() later to enforce the debounce window — if not enough time has passed since lastChangeTime, new triggers get ignored.
 
 
