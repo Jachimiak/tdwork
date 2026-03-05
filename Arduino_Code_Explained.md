@@ -58,3 +58,72 @@ Reads the current state of MAT_PIN (either HIGH or LOW) and stores it in the var
 Sends a confirmation string to the Serial Monitor followed by a newline. Useful for knowing the board has initialized correctly — a simple "it's alive" sanity check.
 
 
+```
+void loop() {
+  bool raw = digitalRead(MAT_PIN);
+  unsigned long now = millis();
+
+  // simple debounce: only accept changes that persist for DEBOUNCE_MS
+  if (raw != lastState && (now - lastChangeTime) > DEBOUNCE_MS) {
+    lastChangeTime = now;
+    lastState = raw;
+
+    if (lastState == LOW) {
+      // mat pressed
+      Serial.println("On1");
+      // optionally include timestamp or count:
+      // Serial.print("MAT: PRESSED at "); Serial.println(now);
+    } else {
+      // mat released
+      Serial.println("Off1");
+    }
+  }
+
+  // Short delay to avoid busy loop
+  delay(5);
+}
+```
+
+This is the main loop — it runs continuously after setup() and is where all the real-time detection logic lives.
+
+**bool raw = digitalRead(MAT_PIN);**
+
+Reads the current electrical state of MAT_PIN on every loop iteration and stores it in a local variable raw. This is a fresh sample each cycle — HIGH (not pressed) or LOW (pressed), per the pull-up logic established earlier.
+
+**unsigned long now = millis();**
+
+Captures the current time in milliseconds since the Arduino powered on. Storing it in now means you're working with a consistent timestamp for this entire loop iteration, rather than calling millis() multiple times and getting slightly different values mid-logic.
+
+**if (raw != lastState && (now - lastChangeTime) > DEBOUNCE_MS)**
+
+The core gate — both conditions must be true before anything happens:
+
+**raw != lastState**
+
+The mat's state has actually changed since the last accepted event**
+
+**(now - lastChangeTime) > DEBOUNCE_MS**
+
+At least 3 seconds have passed since the last accepted change
+
+This is a time-based debounce rather than a delay-based one, which is important — using delay() here would freeze the whole program, whereas millis() comparison is non-blocking.
+
+**lastChangeTime = now;**
+
+Updates the timestamp to the current moment, resetting the debounce clock. The next change won't be accepted until another full DEBOUNCE_MS has elapsed from this point.
+
+**lastState = raw;**
+
+Updates lastState to the newly accepted state. This becomes the new baseline for future change detection.
+
+**if (lastState == LOW) / Serial.println("On1");**
+
+If the newly accepted state is LOW, the mat has been pressed — sends "On1" over serial. The commented-out lines show how you could optionally include a timestamp or press count for richer logging.
+
+**} else { Serial.println("Off1"); }**
+
+If the state isn't LOW, it must be HIGH — the mat was released. Sends "Off1" over serial.
+
+**delay(5);**
+
+A very short 5ms pause at the end of each loop. This prevents the loop from hammering digitalRead() thousands of times per second unnecessarily, giving the processor a tiny breathing room without meaningfully slowing down responsiveness.
