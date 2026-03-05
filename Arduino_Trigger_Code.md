@@ -1,5 +1,9 @@
 # Line by Line Arduino Code Explained for Pressure Pad/Trigger
 
+| [Part 1](#part-1) | [Part 2](#part-2) | [Part 3](#part-3) |
+|---|---|---|
+
+## Part 1
 ```
 // PressureMatToSerial.ino
 const uint8_t MAT_PIN = 2;  // digital pin connected to mat or trigger
@@ -11,23 +15,32 @@ unsigned long lastChangeTime = 0;
 
 This is the global configuration and variable declaration section at the top of the sketch — everything here is available to both setup() and loop().
 
-**const uint8_t MAT_PIN = 2;**
-
+```
+const uint8_t MAT_PIN = 2;
+```
 Declares a constant named MAT_PIN with a value of 2, meaning the pressure mat is wired to digital pin 2. Using uint8_t (an unsigned 8-bit integer) is a memory-efficient choice for storing a pin number since it only needs values 0–255. const ensures this value can never be accidentally changed at runtime.
 
-**const unsigned long DEBOUNCE_MS = 3000;**
-
+---
+```
+const unsigned long DEBOUNCE_MS = 3000;
+```
 Sets a debounce window of 3000 milliseconds (3 seconds). Debouncing prevents rapid, unintended re-triggers — in this context, it means once the mat is triggered, the code will ignore further state changes for 3 full seconds. This is a long debounce compared to typical button use (usually 20–50ms), suggesting the mat is meant to detect deliberate, sustained events rather than quick taps.
 
-**bool lastState = HIGH;**
-
+---
+```
+bool lastState = HIGH;
+```
 A boolean variable that tracks the mat's previous state, initialized to HIGH. The comment explains the logic: because INPUT_PULLUP is used, HIGH means the mat is not pressed and LOW means it is pressed. This inverted logic is standard for pull-up circuits. This variable will be compared against the current reading in loop() to detect changes.
 
-**unsigned long lastChangeTime = 0;**
-
+---
+```
+unsigned long lastChangeTime = 0;
+```
 Stores the timestamp (in milliseconds) of the last detected state change. Initialized to 0 since no change has occurred yet. This will be compared against millis() later to enforce the debounce window — if not enough time has passed since lastChangeTime, new triggers get ignored.
 
 
+---
+## Part 2
 ```
 void setup() {
   Serial.begin(115200);            // serial to computer
@@ -37,27 +50,37 @@ void setup() {
 }
 ```
 
-**void setup()**
-
+---
+```
+void setup()
+```
 The Arduino setup function — runs once when the board powers on or resets. Used for initialization.
 
-**Serial.begin(115200);**
-
+---
+```
+Serial.begin(115200);
+```
 Opens a serial communication channel between the Arduino and your computer at a baud rate of 115200 bits per second. This lets you send debug messages you can read in the Serial Monitor.
 
-**pinMode(MAT_PIN, INPUT_PULLUP)**
-
+---
+```
+pinMode(MAT_PIN, INPUT_PULLUP)
+```
 Configures the pin defined by MAT_PIN as a digital input with the internal pull-up resistor enabled. The pull-up resistor keeps the pin reading HIGH by default — so when the pressure mat connects it to ground, the pin reads LOW. This is the standard way to wire a simple switch or mat without needing an external resistor.
 
-**lastState = digitalRead(MAT_PIN)**
-
+---
+```
+lastState = digitalRead(MAT_PIN)
+```
 Reads the current state of MAT_PIN (either HIGH or LOW) and stores it in the variable lastState. This captures the baseline state of the mat at startup, which is important for detecting changes later in the loop() function rather than just the raw state.
 
-**Serial.println("Pressure mat monitor started.")**
-
+---
+```Serial.println("Pressure mat monitor started.")
+```
 Sends a confirmation string to the Serial Monitor followed by a newline. Useful for knowing the board has initialized correctly — a simple "it's alive" sanity check.
 
-
+---
+## Part 3
 ```
 void loop() {
   bool raw = digitalRead(MAT_PIN);
@@ -86,44 +109,63 @@ void loop() {
 
 This is the main loop — it runs continuously after setup() and is where all the real-time detection logic lives.
 
-**bool raw = digitalRead(MAT_PIN);**
-
+```
+bool raw = digitalRead(MAT_PIN);
+```
 Reads the current electrical state of MAT_PIN on every loop iteration and stores it in a local variable raw. This is a fresh sample each cycle — HIGH (not pressed) or LOW (pressed), per the pull-up logic established earlier.
 
-**unsigned long now = millis();**
-
+---
+```
+unsigned long now = millis();
+```
 Captures the current time in milliseconds since the Arduino powered on. Storing it in now means you're working with a consistent timestamp for this entire loop iteration, rather than calling millis() multiple times and getting slightly different values mid-logic.
 
-**if (raw != lastState && (now - lastChangeTime) > DEBOUNCE_MS)**
-
+---
+```
+if (raw != lastState && (now - lastChangeTime) > DEBOUNCE_MS)
+```
 The core gate — both conditions must be true before anything happens:
 
-**raw != lastState**
-
+---
+```
+raw != lastState
+```
 The mat's state has actually changed since the last accepted event**
 
-**(now - lastChangeTime) > DEBOUNCE_MS**
-
+---
+```
+(now - lastChangeTime) > DEBOUNCE_MS
+```
 At least 3 seconds have passed since the last accepted change
 
 This is a time-based debounce rather than a delay-based one, which is important — using delay() here would freeze the whole program, whereas millis() comparison is non-blocking.
 
-**lastChangeTime = now;**
-
+---
+```
+lastChangeTime = now;
+```
 Updates the timestamp to the current moment, resetting the debounce clock. The next change won't be accepted until another full DEBOUNCE_MS has elapsed from this point.
 
-**lastState = raw;**
-
+---
+```
+lastState = raw;
+```
 Updates lastState to the newly accepted state. This becomes the new baseline for future change detection.
 
-**if (lastState == LOW) / Serial.println("On1");**
-
+---
+```
+if (lastState == LOW) / Serial.println("On1");
+```
 If the newly accepted state is LOW, the mat has been pressed — sends "On1" over serial. The commented-out lines show how you could optionally include a timestamp or press count for richer logging.
 
-**} else { Serial.println("Off1"); }**
-
+---
+```
+} else { Serial.println("Off1"); }
+```
 If the state isn't LOW, it must be HIGH — the mat was released. Sends "Off1" over serial.
 
-**delay(5);**
-
+---
+```
+delay(5);
+```
 A very short 5ms pause at the end of each loop. This prevents the loop from hammering digitalRead() thousands of times per second unnecessarily, giving the processor a tiny breathing room without meaningfully slowing down responsiveness.
