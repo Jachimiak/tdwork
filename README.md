@@ -8,7 +8,8 @@ This documentation was originally created for USITT 2026 in Long Beach, Californ
 - TouchDesigner Network
 - [Arduino Trigger .ino File](pressure_pad_trigger.ino)
 - [Arduino Motion .ino File](motion_sensor.ino)
-- TouchDesign .toe File
+- [TouchDesign Trigger .toe File](/toe_Files/Electrocution.toe)
+- [TouchDesign Motion .toe File](/toe_Files/First_Hallway_Tripwire_USITT.toe)
 
 *Notes on AI Use*
 
