@@ -1,4 +1,4 @@
-# TouchDesign and Arduino Notes
+# TouchDesigner and Arduino Notes
 
 This documentation was originally created for USITT 2026 in Long Beach, California for the workshop *Designing the Scare: Interactive Fright Effects with TouchDesigner and Python*. The presentation focused on beginning users of TouchDesigner, Arduinos, and Python when creating interactive and/or scare related items for haunted attractions. All information is freely available and welcome to be reused if you desire.
 
@@ -7,8 +7,8 @@ This documentation was originally created for USITT 2026 in Long Beach, Californ
 - [Arduino Motion Code Explained](Arduino_Motion_Code.md)
 - [Arduino Trigger .ino File](pressure_pad_trigger.ino)
 - [Arduino Motion .ino File](motion_sensor.ino)
-- [TouchDesign Trigger .toe File](/toe_Files/Electrocution.toe)(Needs to be downloaded and opened with TouchDesigner)
-- [TouchDesign Motion .toe File](/toe_Files/First_Hallway_Tripwire_USITT.toe)(Needs to be downloaded and opened with TouchDesigner)
+- [TouchDesigner Trigger .toe File](/toe_Files/Electrocution.toe) (Needs to be downloaded and opened with TouchDesigner)
+- [TouchDesigner Motion .toe File](/toe_Files/First_Hallway_Tripwire_USITT.toe) (Needs to be downloaded and opened with TouchDesigner)
 - [Base Trigger Python](/Python_Code/Arduion_Trigger_Python.py)
 - [Base Motion Python](/Python_Code/Arduino_Motion_Python.py)
 
