@@ -5,11 +5,12 @@ This documentation was originally created for USITT 2026 in Long Beach, Californ
 ### Files
 - [Arduino Trigger Code Explained](Arduino_Trigger_Code.md)
 - [Arduino Motion Code Explained](Arduino_Motion_Code.md)
-- TouchDesigner Network
 - [Arduino Trigger .ino File](pressure_pad_trigger.ino)
 - [Arduino Motion .ino File](motion_sensor.ino)
-- [TouchDesign Trigger .toe File](/toe_Files/Electrocution.toe)
-- [TouchDesign Motion .toe File](/toe_Files/First_Hallway_Tripwire_USITT.toe)
+- [TouchDesign Trigger .toe File](/toe_Files/Electrocution.toe)(Needs to be downloaded and opened with TouchDesigner)
+- [TouchDesign Motion .toe File](/toe_Files/First_Hallway_Tripwire_USITT.toe)(Needs to be downloaded and opened with TouchDesigner)
+- [Base Trigger Python](/Python_Code/Arduion_Trigger_Python.py)
+- [Base Motion Python](/Python_Code/Arduino_Motion_Python.py)
 
 *Notes on AI Use*
 
