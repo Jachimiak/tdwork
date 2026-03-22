@@ -11,7 +11,7 @@ This documentation was originally created for USITT 2026 in Long Beach, Californ
 - [TouchDesigner Motion .toe File](/toe_Files/First_Hallway_Tripwire_USITT.toe) (Needs to be downloaded and opened with TouchDesigner)
 - [Base Trigger Python](/Python_Code/Arduion_Trigger_Python.py)
 - [Base Motion Python](/Python_Code/Arduino_Motion_Python.py)
-- [USITT Slide Show](2026-02-27_USITT_PRESENTATION_DESIGNING _THE_SCARE_V1.pdf)
+- [USITT Slide Show](2026-02-27_USITT_PRESENTATION_DESIGNING_THE_SCARE_V1.pdf)
 
 ### Website Links
 - [TouchDesigner](https://derivative.ca/)
